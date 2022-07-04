@@ -9,6 +9,9 @@ using EventHandler = Opsive.Shared.Events.EventHandler;
 [Serializable]
 public class OnDamage : UnityEvent<float> { }
 
+[Serializable]
+public class OnDebuff : UnityEvent<BaseDebuff> { }
+
 public class DamageProcessor : MonoBehaviour
 {
     public bool isInvincibleAfterHit = false;
@@ -16,6 +19,7 @@ public class DamageProcessor : MonoBehaviour
     [NonSerialized] public float dodgeChance = 0;
 
     [SerializeField] private OnDamage OnDamage;
+    [SerializeField] private OnDebuff OnDebuff;
     [SerializeField] private List<Collider> hitBoxColliders;
     private bool isInvincible = false;
     private int notDodgedHits = 0;
@@ -81,7 +85,11 @@ public class DamageProcessor : MonoBehaviour
                 StartCoroutine(AfterHitInvincibility());
             }
             OnDamage.Invoke(damageInfo.damageAmount);
-            //Apply Debuf
+
+            if(damageInfo.attackDebuff != null)
+            {
+                OnDebuff.Invoke(damageInfo.attackDebuff);
+            }
         }
     }
 }

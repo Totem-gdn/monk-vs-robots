@@ -57,3 +57,9 @@ public enum TargetType
     Player,
     CurrentTarget
 }
+
+public enum DebuffDurationType
+{
+    Permanent,
+    Temporary
+}

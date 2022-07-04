@@ -1,3 +1,4 @@
+using Opsive.Shared.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,9 +14,65 @@ public class RobotAim : MonoBehaviour
     [SerializeField] private LayerMask hitTargetsMask;
     [SerializeField] private float shootDistance;
 
+    private float defaultAimRotationSpeed = 0.1f;
+    private float currentAimRotationSpeed;
+
     public float centerOffsetY = 0;
 
     public bool IsAimed { get; private set; }
+
+    private void Awake()
+    {
+        currentAimRotationSpeed = defaultAimRotationSpeed;
+    }
+
+    private bool RestrictedAxisInBounds(float nextAngle)
+    {
+        nextAngle = nextAngle > 180 ? nextAngle - 360 : nextAngle;
+
+        if (nextAngle >= maxAngle || nextAngle <= minAngle)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private float GetAxisEulerAngel(AxisType axisType, Quaternion rotationQuaternion)
+    {
+        switch (axisType)
+        {
+            case AxisType.X:
+                return rotationQuaternion.eulerAngles.x;
+            case AxisType.Y:
+                return rotationQuaternion.eulerAngles.y;
+            case AxisType.Z:
+                return rotationQuaternion.eulerAngles.z;
+            default:
+                return 0;
+        }
+    }
+
+    private void OnSpeedChange(float speedMultiplier, bool isNormalSpeed)
+    {
+        if(isNormalSpeed)
+        {
+            currentAimRotationSpeed = defaultAimRotationSpeed;
+            return;
+        }
+        currentAimRotationSpeed *= speedMultiplier;
+    }
+
+    private void OnEnable()
+    {
+        EventHandler.RegisterEvent<float, bool>(gameObject, "SpeedChange", OnSpeedChange);
+    }
+
+    private void OnDisable()
+    {
+        currentAimRotationSpeed = defaultAimRotationSpeed;
+        EventHandler.UnregisterEvent<float, bool>(gameObject, "SpeedChange", OnSpeedChange);
+    }
 
     public IEnumerator Aim(Transform targetTransform)
     {
@@ -45,7 +102,7 @@ public class RobotAim : MonoBehaviour
                 }
             }
 
-            var newRotationQuaternion = Quaternion.Slerp(currentRotation, targetRotation, 0.1f);
+            var newRotationQuaternion = Quaternion.Slerp(currentRotation, targetRotation, currentAimRotationSpeed);
             if (RestrictedAxisInBounds(GetAxisEulerAngel(restrictedAxis, newRotationQuaternion)))
             {
                 if (isLocalRotation)
@@ -71,33 +128,6 @@ public class RobotAim : MonoBehaviour
             }
 
             yield return null;
-        }
-    }
-
-    private bool RestrictedAxisInBounds(float nextAngle)
-    {
-        nextAngle = nextAngle > 180 ? nextAngle - 360 : nextAngle;
-
-        if(nextAngle >= maxAngle || nextAngle <= minAngle)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    private float GetAxisEulerAngel(AxisType axisType, Quaternion rotationQuaternion)
-    {
-        switch (axisType)
-        {
-            case AxisType.X:
-                return rotationQuaternion.eulerAngles.x;
-            case AxisType.Y:
-                return rotationQuaternion.eulerAngles.y;
-            case AxisType.Z:
-                return rotationQuaternion.eulerAngles.z;
-            default:
-                return 0;
         }
     }
 }
