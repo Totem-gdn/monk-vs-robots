@@ -21,6 +21,8 @@ public class SpearWeapon : MonoBehaviour
     [SerializeField] private HitDetector weaponHitDetector;
     [SerializeField] private Collider spearTipCollider;
     [SerializeField] private ElementEnumGameObjectDictionary elementTypes;
+    [SerializeField] private ElementEnumBaseDebuffDictionary elementEffects;
+    [SerializeField] private EarthAoe earthAoe;
 
     private TipMaterialEnum tipMaterial;
     private ElementEnum element;
@@ -54,7 +56,6 @@ public class SpearWeapon : MonoBehaviour
         weaponHitDetector.damageInfo.baseDamage = spear.damage;
         spearRangedController.throwingForce = spear.range;
 
-        //To Do: assign attack buf\debuf depending on element
         SetSpearElement(spear.element);
         spearShaftMaterial.color = spear.shaftColor;
 
@@ -75,8 +76,16 @@ public class SpearWeapon : MonoBehaviour
     {
         elementTypes[element].SetActive(false);
         element = elementToSet;
-
         elementTypes[elementToSet].SetActive(true);
+
+        if (element != ElementEnum.Earth)
+        {
+            weaponHitDetector.damageInfo.attackDebuff = elementEffects[elementToSet];
+        }
+        else
+        {
+            earthAoe.InitializeAoeDamage(weaponHitDetector.damageInfo.baseDamage);
+        }
     }
 
     private void EnableHitCollider(bool isEnabled)
@@ -139,6 +148,11 @@ public class SpearWeapon : MonoBehaviour
         EnableHitCollider(false);
         spearRangedController.enabled = false;
         damageMultiplier = 1;
+        if(element == ElementEnum.Earth)
+        {
+            earthAoe.StopAllCoroutines();
+            earthAoe.StartCoroutine(earthAoe.ActivateAoe());
+        }
         StartCoroutine(DelayedPickupActivation());
     }
 

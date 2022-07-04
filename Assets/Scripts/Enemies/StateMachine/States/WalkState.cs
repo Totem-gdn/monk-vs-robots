@@ -41,6 +41,16 @@ public class WalkState : BaseState
         base.OnDisable();
     }
 
+    private void OnEnable()
+    {
+        if (isAgentExists)
+        {
+            navMeshAgent.isStopped = false;
+            animator.SetTrigger(Constants.WALK_ANIMATION_TRIGGER);
+        }
+        IsCompleted = true;
+    }
+
     private void SetNewDestination()
     {
         var newDestination = targetCollider.ClosestPoint(transform.position);
@@ -60,15 +70,5 @@ public class WalkState : BaseState
             default:
                 return stateMachine.currentTargetCollider;
         }
-    }
-
-    private void OnEnable()
-    {
-        if (isAgentExists)
-        {
-            navMeshAgent.isStopped = false;
-            animator.SetTrigger(Constants.WALK_ANIMATION_TRIGGER);
-        }
-        IsCompleted = true;
     }
 }

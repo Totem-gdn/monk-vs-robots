@@ -23,4 +23,10 @@ public class ExplodeState : BaseState
         explosionhitDetector.ClearHittedTargets();
         stateMachine.hpController.Damage(stateMachine.hpController.CurrentHp);
     }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        explosionCollider.enabled = false;
+    }
 }

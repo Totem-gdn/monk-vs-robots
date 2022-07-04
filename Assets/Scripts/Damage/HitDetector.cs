@@ -9,7 +9,7 @@ public struct DamageInfo
     public float damageAmount;
     public string damageDealerName;
     public float baseDamage;
-    //Add refs to attack buffs\debuffs
+    public BaseDebuff attackDebuff;
 }
 
 public class HitDetector : MonoBehaviour

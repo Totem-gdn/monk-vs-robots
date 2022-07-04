@@ -18,3 +18,7 @@ public class CharacterTypeGameObjectDictionary : SerializableDictionary<Characte
 [Serializable]
 public class ElementEnumGameObjectDictionary : SerializableDictionary<ElementEnum, GameObject>
 { }
+
+[Serializable]
+public class ElementEnumBaseDebuffDictionary : SerializableDictionary<ElementEnum, BaseDebuff>
+{ }

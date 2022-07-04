@@ -101,6 +101,7 @@ public class MeleeAttackState : BaseState
     protected override void OnDisable()
     {
         base.OnDisable();
+        meleeAttackCollider.enabled = false;
         isAttacking = false;
         isOnCooldown = false;
         isRotating = false;

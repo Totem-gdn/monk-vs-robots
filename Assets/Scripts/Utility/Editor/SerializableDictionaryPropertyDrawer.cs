@@ -7,4 +7,5 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(HairStyleEnumGameObjectDictionary))]
 [CustomPropertyDrawer(typeof(CharacterTypeGameObjectDictionary))]
 [CustomPropertyDrawer(typeof(ElementEnumGameObjectDictionary))]
+[CustomPropertyDrawer(typeof(ElementEnumBaseDebuffDictionary))]
 public class MySerializableDictionaryPropertyDrawer : SerializableDictionaryPropertyDrawer { }

@@ -27968,6 +27968,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnDebuff:
+    m_PersistentCalls:
+      m_Calls: []
   hitBoxColliders:
   - {fileID: 8035593461320790592}
 --- !u!114 &8035593461320790591

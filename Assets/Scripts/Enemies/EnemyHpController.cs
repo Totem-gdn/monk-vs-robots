@@ -8,6 +8,7 @@ public class EnemyHpController : MonoBehaviour
 {
     [SerializeField] private Slider hpSlider;
 
+    [Min(0)]
     [SerializeField] private float maxHp;
     [SerializeField] private float currentHp;
 

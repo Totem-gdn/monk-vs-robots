@@ -23,7 +23,7 @@ public class BaseStateMachine : MonoBehaviour
 
     public BaseState CurrentState { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
         TryGetComponent(out robotAnimator);
         EventHandler.RegisterEvent(gameObject, "Death", OnDeath);
