@@ -16260,6 +16260,9 @@ MonoBehaviour:
   effectsVolumeSlider: {fileID: 0}
   musicVolumeSlider: {fileID: 981700630}
   assetsChooser: {fileID: 362754792}
+  arenasDictionary:
+    m_keys: 00000000010000000200000003000000
+    m_values: 01000000010000000200000002000000
 --- !u!1 &1796655387
 GameObject:
   m_ObjectHideFlags: 0

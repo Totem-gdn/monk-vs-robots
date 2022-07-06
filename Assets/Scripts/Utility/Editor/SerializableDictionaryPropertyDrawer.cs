@@ -8,4 +8,5 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(CharacterTypeGameObjectDictionary))]
 [CustomPropertyDrawer(typeof(ElementEnumGameObjectDictionary))]
 [CustomPropertyDrawer(typeof(ElementEnumBaseDebuffDictionary))]
+[CustomPropertyDrawer(typeof(ElementEnumSceneIdDictionary))]
 public class MySerializableDictionaryPropertyDrawer : SerializableDictionaryPropertyDrawer { }
