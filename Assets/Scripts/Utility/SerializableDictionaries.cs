@@ -22,3 +22,7 @@ public class ElementEnumGameObjectDictionary : SerializableDictionary<ElementEnu
 [Serializable]
 public class ElementEnumBaseDebuffDictionary : SerializableDictionary<ElementEnum, BaseDebuff>
 { }
+
+[Serializable]
+public class ElementEnumSceneIdDictionary : SerializableDictionary<ElementEnum, int>
+{ }

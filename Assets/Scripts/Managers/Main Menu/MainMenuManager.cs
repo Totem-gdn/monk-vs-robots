@@ -17,6 +17,8 @@ public class MainMenuManager : MonoBehaviour
 
     public AssetsChooser assetsChooser;
 
+    [SerializeField] private ElementEnumSceneIdDictionary arenasDictionary;
+
     private AuthenticationManager authenticationManager;
     
     public TMP_Text VolumeSliderValueText { get; set; }
@@ -60,7 +62,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnPlayClick()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        var arenaIndex = arenasDictionary[TotemManager.Instance.currentSpear.element];
+        UnityEngine.SceneManagement.SceneManager.LoadScene(arenaIndex);
     }
 
     public void OnAvatarChooserCancelClick()

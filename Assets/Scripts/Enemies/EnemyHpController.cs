@@ -36,11 +36,14 @@ public class EnemyHpController : MonoBehaviour
 
     public void Damage(float damageValue)
     {
-        currentHp -= damageValue > currentHp ? currentHp : damageValue;
-        hpSlider.value = CurrentHp;
-        if(currentHp == 0)
+        if (currentHp > 0)
         {
-            EventHandler.ExecuteEvent(gameObject, "Death");
+            currentHp -= damageValue > currentHp ? currentHp : damageValue;
+            hpSlider.value = CurrentHp;
+            if (currentHp == 0)
+            {
+                EventHandler.ExecuteEvent(gameObject, "Death");
+            }
         }
     }
 
