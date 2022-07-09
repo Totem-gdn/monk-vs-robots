@@ -10,6 +10,9 @@ public class BaseStateMachine : MonoBehaviour
     public EnemyHpController hpController;
     public Collider mainCollider;
 
+    private int currentCheckpointIndex;
+    private Transform currentCheckpoint;
+
     [NonSerialized] public Transform currentTargetTransform;
     [NonSerialized] public Collider currentTargetCollider;
     [NonSerialized] public bool isStateMachineRunning = false;
@@ -17,18 +20,43 @@ public class BaseStateMachine : MonoBehaviour
 
     [SerializeField] private List<BaseState> avaliableStates;
     [SerializeField] private BaseState startState;
+    [SerializeField] private List<Transform> checkpointsPath;
 
     private List<BaseTransition> currentStateTransitions;
     private Animator robotAnimator;
 
     public BaseState CurrentState { get; private set; }
+    public List<Transform> CheckpointsPath
+    {
+        get
+        {
+            return checkpointsPath;
+        }
+    }
+
+    public int CurrentCheckpointIndex
+    {
+        get
+        {
+            return currentCheckpointIndex;
+        }
+    }
+
+    public Transform CurrentCheckpoint
+    {
+        get
+        {
+            return currentCheckpoint;
+        }
+    }
 
     private void Awake()
     {
         TryGetComponent(out robotAnimator);
+        InitializeStateTransitions();
+        ResetCheckpoints();
         EventHandler.RegisterEvent(gameObject, "Death", OnDeath);
         EventHandler.RegisterEvent<GameEndedType>("GameEnded", OnGameEnded);
-        InitializeStateTransitions();
     }
 
     private void Update()
@@ -102,9 +130,20 @@ public class BaseStateMachine : MonoBehaviour
     private void OnGameEnded(GameEndedType gameEndedType)
     {
         ResetStateMachine();
+        ResetCheckpoints();
+
         if (gameEndedType == GameEndedType.Lose && robotAnimator != null)
         {
             robotAnimator.SetTrigger(Constants.VICTORY_ANIMATION_TRIGGER);
+        }
+    }
+
+    private void ResetCheckpoints()
+    {
+        currentCheckpointIndex = 0;
+        if (checkpointsPath.Count > 0)
+        {
+            currentCheckpoint = checkpointsPath[0];
         }
     }
 
@@ -129,5 +168,14 @@ public class BaseStateMachine : MonoBehaviour
         currentTargetTransform = null;
         currentTargetCollider = null;
         CurrentState = startState;
+    }
+
+    public void CheckpointReached()
+    {
+        currentCheckpointIndex++;
+        if (currentCheckpointIndex < checkpointsPath.Count && checkpointsPath.Count > 0)
+        {
+            currentCheckpoint = checkpointsPath[currentCheckpointIndex];
+        }
     }
 }

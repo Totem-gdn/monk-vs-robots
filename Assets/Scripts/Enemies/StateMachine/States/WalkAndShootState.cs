@@ -6,6 +6,9 @@ using UnityEngine.AI;
 public class WalkAndShootState : RangedAttackState
 {
     [SerializeField] private TargetType walkTarget;
+    [SerializeField] private bool isCheckpointsPath;
+    [Min(0)]
+    [SerializeField] private float checkpointTriggerDistance;
 
     private Collider walkTargetCollider;
 
@@ -56,7 +59,20 @@ public class WalkAndShootState : RangedAttackState
             {
                 animator.SetTrigger(Constants.WALK_ANIMATION_TRIGGER);
             }
-            SetNewDestination();
+            if (isCheckpointsPath && stateMachine.CurrentCheckpointIndex < stateMachine.CheckpointsPath.Count)
+            {
+                var distance = Vector3.Distance(transform.position, stateMachine.CurrentCheckpoint.position);
+
+                if (distance <= checkpointTriggerDistance)
+                {
+                    stateMachine.CheckpointReached();
+                    navMeshAgent.SetDestination(stateMachine.CurrentCheckpoint.position);
+                }
+            }
+            else
+            {
+                SetNewDestination();
+            }
         }
     }
 
