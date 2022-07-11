@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class SpearWeapon : MonoBehaviour
 {
+    private const string ANIMATOR_ARMED_PARAMETER = "SpearInHands";
+
     public float criticalDamageChance = 0;
 
     [SerializeField] private TipMaterialEnumGameObjectDictionary tipTypes;
@@ -131,6 +133,7 @@ public class SpearWeapon : MonoBehaviour
 
     private void OnSpearThrow(float chargeMultiplier)
     {
+        CharacterControllerHelper.Instance.CharacterAnimator?.SetBool(ANIMATOR_ARMED_PARAMETER, false);
         damageMultiplier = chargeMultiplier;
         spearRangedController.forceMultiplier = chargeMultiplier;
 
@@ -158,6 +161,7 @@ public class SpearWeapon : MonoBehaviour
 
     private void OnSpearPickedUp()
     {
+        CharacterControllerHelper.Instance.CharacterAnimator?.SetBool(ANIMATOR_ARMED_PARAMETER, true);
         transform.SetParent(parentRoot);
         transform.localPosition = startPosition;
         transform.localRotation = startRotation;
