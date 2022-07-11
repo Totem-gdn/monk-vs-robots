@@ -25,17 +25,20 @@ public class CharacterControllerHelper : MonoBehaviour
     private bool isGameEnded = false;
     private GameEndedType gameEndedType;
 
+
     public GameObject Character { get; private set; }
     public static CharacterControllerHelper Instance { get; private set; }
+    public Animator CharacterAnimator { get; private set; } 
 
     public void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
 
         Character = gameObject;
+        CharacterAnimator = GetComponent<Animator>();
         InitializeAvatar();
 
         EventHandler.RegisterEvent("GameRestarted", OnGameRestarted);
