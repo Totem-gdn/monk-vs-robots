@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/EarthArena.unity
     guid: a88973a46ea74704c9e941859ba84af7
   - enabled: 1
+    path: Assets/Scenes/WaterArena.unity
+    guid: 4667224d6961c1e4a8eb1a74ca8a0047
+  - enabled: 1
     path: Assets/Scenes/FireArena.unity
     guid: e1e140a6ec313f34bb31af28e63240d3
   m_configObjects: {}
