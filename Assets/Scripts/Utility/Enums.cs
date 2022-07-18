@@ -12,9 +12,22 @@ public enum VolumeType
 public enum MusicType
 {
     Menu,
-    Battle,
-    Defeat,
-    Victory
+    FireArena,
+    WaterArena,
+    EarthArena,
+    AirArena
+}
+
+public enum SoundType
+{
+    Default,
+    StaffSwing,
+    TakeDamage,
+    CannonShoot,
+    RingAoe,
+    BombExplosion,
+    BossAoe,
+    TankDrive
 }
 
 public enum CharacterType

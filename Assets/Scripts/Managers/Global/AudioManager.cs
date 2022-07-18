@@ -1,10 +1,12 @@
+using Opsive.UltimateCharacterController.SurfaceSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class AudioManager : MonoBehaviour
 {
+    [SerializeField] private List<SurfaceEffect> surfaceEffects;
+
     public AudioSource uiAudioSource;
     public AudioSource musicAudioSource;
 
@@ -17,13 +19,14 @@ public class AudioManager : MonoBehaviour
     #region Music
 
     public AudioClip menuClip;
-    public AudioClip battleClip;
-    public AudioClip defeatClip;
-    public AudioClip victoryClip;
+    public AudioClip fireArenaClip;
+    public AudioClip waterArenaClip;
+    public AudioClip airArenaClip;
+    public AudioClip earthArenaClip;
 
     #endregion
 
-    private VolumeType volumeType;
+    public VolumeType volumeType;
 
     public static AudioManager Instance { get; private set; }
 
@@ -33,6 +36,10 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -45,6 +52,13 @@ public class AudioManager : MonoBehaviour
                 break;
             case VolumeType.Music:
                 musicAudioSource.volume = value;
+                break;
+            case VolumeType.Effects:
+                foreach(var effect in surfaceEffects)
+                {
+                    effect.MinAudioVolume = value;
+                    effect.MaxAudioVolume = value;
+                }
                 break;
         }
 
@@ -64,14 +78,17 @@ public class AudioManager : MonoBehaviour
             case MusicType.Menu:
                 musicAudioSource.clip = menuClip;
                 break;
-            case MusicType.Battle:
-                musicAudioSource.clip = battleClip;
+            case MusicType.FireArena:
+                musicAudioSource.clip = fireArenaClip;
                 break;
-            case MusicType.Defeat:
-                musicAudioSource.clip = defeatClip;
+            case MusicType.WaterArena:
+                musicAudioSource.clip = waterArenaClip;
                 break;
-            case MusicType.Victory:
-                musicAudioSource.clip = victoryClip;
+            case MusicType.EarthArena:
+                musicAudioSource.clip = earthArenaClip;
+                break;
+            case MusicType.AirArena:
+                musicAudioSource.clip = airArenaClip;
                 break;
         }
 
@@ -87,11 +104,5 @@ public class AudioManager : MonoBehaviour
         {
             musicAudioSource.Stop();
         }
-    }
-
-    //For UI purposes
-    public void SetVolumeType(int volumeTypeIndex)
-    {
-        volumeType = (VolumeType)volumeTypeIndex;
     }
 }

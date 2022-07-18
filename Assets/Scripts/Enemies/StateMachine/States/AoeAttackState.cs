@@ -19,6 +19,7 @@ public class AoeAttackState : BaseState
 
     private void OnEnable()
     {
+        stateMachine.RobotSoundsManager.PlayAudioClip(SoundType.RingAoe);
         animator.SetTrigger(Constants.IDLE_ANIMATION_TRIGGER);
         aoeAttackTransform.gameObject.SetActive(true);
         StartCoroutine(PerformAoeGrow());

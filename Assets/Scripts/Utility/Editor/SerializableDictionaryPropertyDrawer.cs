@@ -9,4 +9,5 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(ElementEnumGameObjectDictionary))]
 [CustomPropertyDrawer(typeof(ElementEnumBaseDebuffDictionary))]
 [CustomPropertyDrawer(typeof(ElementEnumSceneIdDictionary))]
+[CustomPropertyDrawer(typeof(SoundTypeEnumAudioClipInfoDictionary))]
 public class MySerializableDictionaryPropertyDrawer : SerializableDictionaryPropertyDrawer { }
