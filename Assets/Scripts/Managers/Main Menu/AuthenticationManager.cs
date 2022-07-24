@@ -19,7 +19,8 @@ public class AuthenticationManager : MonoBehaviour
 
     public void OnLogInClick()
     {
-       var isAuthenticated = TotemManager.Instance.TotemMockDB.UsersDB
+        AudioManager.Instance?.PlayButtonSound();
+        var isAuthenticated = TotemManager.Instance.TotemMockDB.UsersDB
             .AuthenticateUser(logInNicknameInputField.text, logInPasswordInputField.text);
 
         if(isAuthenticated)
@@ -36,18 +37,21 @@ public class AuthenticationManager : MonoBehaviour
 
     public void OnSignInClick()
     {
+        AudioManager.Instance?.PlayButtonSound();
         ClosePanel(logInPanel, logInPasswordInputField, logInNicknameInputField, logInErrorMessageText);
         signInPanel.SetActive(true);
     }
 
     public void OnSignInCancelClick()
     {
+        AudioManager.Instance?.PlayButtonSound();
         CloseSignInPanel();
     }
 
     public void OnCreateNewAccountClick()
     {
-        if(string.IsNullOrWhiteSpace(signInNicknameInputField.text))
+        AudioManager.Instance?.PlayButtonSound();
+        if (string.IsNullOrWhiteSpace(signInNicknameInputField.text))
         {
             signInErrorMessageText.text = "Your nickname can't be empty.";
             return;

@@ -26,3 +26,7 @@ public class ElementEnumBaseDebuffDictionary : SerializableDictionary<ElementEnu
 [Serializable]
 public class ElementEnumSceneIdDictionary : SerializableDictionary<ElementEnum, int>
 { }
+
+[Serializable]
+public class SoundTypeEnumAudioClipInfoDictionary : SerializableDictionary<SoundType, AudioClipInfo>
+{ }

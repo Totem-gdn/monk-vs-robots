@@ -30,7 +30,8 @@ public class ContinuousHitDetector : MonoBehaviour
             hittedTargets.Add(hitCollider.gameObject);
             if (hitCollider.TryGetComponent(out HitBox hitBox))
             {
-                if (!damageProcessors.Contains(hitBox.DamageProcessor))
+                if (!damageProcessors.Contains(hitBox.DamageProcessor) 
+                    && !damageTickCoroutines.ContainsKey(hitBox))
                 {
                     RegisterHitBox(hitBox);
                 }

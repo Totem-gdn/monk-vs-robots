@@ -21,6 +21,9 @@ public class DamageProcessor : MonoBehaviour
     [SerializeField] private OnDamage OnDamage;
     [SerializeField] private OnDebuff OnDebuff;
     [SerializeField] private List<Collider> hitBoxColliders;
+    [SerializeField] private bool soundOnDamage;
+    [SerializeField] private SoundsManager soundsManager;
+
     private bool isInvincible = false;
     private int notDodgedHits = 0;
 
@@ -84,7 +87,12 @@ public class DamageProcessor : MonoBehaviour
             {
                 StartCoroutine(AfterHitInvincibility());
             }
+
             OnDamage.Invoke(damageInfo.damageAmount);
+            if(soundOnDamage)
+            {
+                soundsManager.PlayAudioClip(SoundType.TakeDamage);
+            }
 
             if(damageInfo.attackDebuff != null)
             {

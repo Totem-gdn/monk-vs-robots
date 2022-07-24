@@ -18,10 +18,12 @@ public class StaticAoeAttackState : BaseState
 
     private IEnumerator PerformAoeAttack()
     {
+        stateMachine.RobotSoundsManager.PlayAudioClip(SoundType.BossAoe, true);
         EnableDisableAoeColliders(true);
         yield return new WaitForSeconds(aoeAttackDuration);
         EnableDisableAoeColliders(false);
         ClearAoeHitDetectors();
+        stateMachine.RobotSoundsManager.StopAudioSource();
     }
 
     private void EnableDisableAoeColliders(bool isEnabled)

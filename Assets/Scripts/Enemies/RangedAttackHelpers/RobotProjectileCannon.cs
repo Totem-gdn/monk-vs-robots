@@ -9,6 +9,7 @@ public class RobotProjectileCannon : MonoBehaviour
     [SerializeField] private float cannonForce;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Transform projectilesPool;
+    [SerializeField] private SoundsManager cannonSoundsManager;
 
     private List<RobotProjectile> pooledProjectiles = new List<RobotProjectile>();
 
@@ -47,6 +48,7 @@ public class RobotProjectileCannon : MonoBehaviour
     {
         if(pooledProjectiles.Count > 0)
         {
+            cannonSoundsManager.PlayAudioClip(SoundType.CannonShoot);
             pooledProjectiles[0].transform.SetParent(shootPoint);
             pooledProjectiles[0].transform.localPosition = Vector3.zero;
             pooledProjectiles[0].gameObject.SetActive(true);

@@ -10,9 +10,6 @@ public class BaseStateMachine : MonoBehaviour
     public EnemyHpController hpController;
     public Collider mainCollider;
 
-    private int currentCheckpointIndex;
-    private Transform currentCheckpoint;
-
     [NonSerialized] public Transform currentTargetTransform;
     [NonSerialized] public Collider currentTargetCollider;
     [NonSerialized] public bool isStateMachineRunning = false;
@@ -21,11 +18,15 @@ public class BaseStateMachine : MonoBehaviour
     [SerializeField] private List<BaseState> avaliableStates;
     [SerializeField] private BaseState startState;
     [SerializeField] private List<Transform> checkpointsPath;
+    [SerializeField] private SoundsManager robotSoundsManager;
 
     private List<BaseTransition> currentStateTransitions;
     private Animator robotAnimator;
 
     public BaseState CurrentState { get; private set; }
+    public int CurrentCheckpointIndex { get; private set; }
+    public Transform CurrentCheckpoint { get; private set; }
+
     public List<Transform> CheckpointsPath
     {
         get
@@ -34,19 +35,11 @@ public class BaseStateMachine : MonoBehaviour
         }
     }
 
-    public int CurrentCheckpointIndex
+    public SoundsManager RobotSoundsManager
     {
         get
         {
-            return currentCheckpointIndex;
-        }
-    }
-
-    public Transform CurrentCheckpoint
-    {
-        get
-        {
-            return currentCheckpoint;
+            return robotSoundsManager;
         }
     }
 
@@ -140,10 +133,10 @@ public class BaseStateMachine : MonoBehaviour
 
     private void ResetCheckpoints()
     {
-        currentCheckpointIndex = 0;
+        CurrentCheckpointIndex = 0;
         if (checkpointsPath.Count > 0)
         {
-            currentCheckpoint = checkpointsPath[0];
+            CurrentCheckpoint = checkpointsPath[0];
         }
     }
 
@@ -172,10 +165,10 @@ public class BaseStateMachine : MonoBehaviour
 
     public void CheckpointReached()
     {
-        currentCheckpointIndex++;
-        if (currentCheckpointIndex < checkpointsPath.Count && checkpointsPath.Count > 0)
+        CurrentCheckpointIndex++;
+        if (CurrentCheckpointIndex < checkpointsPath.Count && checkpointsPath.Count > 0)
         {
-            currentCheckpoint = checkpointsPath[currentCheckpointIndex];
+            CurrentCheckpoint = checkpointsPath[CurrentCheckpointIndex];
         }
     }
 }

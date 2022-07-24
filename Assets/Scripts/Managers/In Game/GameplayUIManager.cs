@@ -15,6 +15,7 @@ public class GameplayUIManager : MonoBehaviour
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject waveCountdownPanel;
     [SerializeField] private GameObject waveEnemiesPanel;
+    [SerializeField] private GameObject exitPanel;
 
     #endregion
 
@@ -30,10 +31,12 @@ public class GameplayUIManager : MonoBehaviour
     private int minutesUntilNextWave = 0;
     private int secondsUntilNextWave = 0;
     private int killedEnemiesCount = 0;
+    private bool isGameEnded = false;
+    private List<GameObject> activePanels = new List<GameObject>();
 
     public static GameplayUIManager Instance { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
         if(Instance == null)
         {
@@ -43,24 +46,34 @@ public class GameplayUIManager : MonoBehaviour
         EventHandler.RegisterEvent<int>("StartNewWave", OnStartNewWave);
     }
 
-    private void OnGameEnded(GameEndedType gameEndedType)
+    private void Update()
     {
-        switch (gameEndedType)
+        if(!isGameEnded && Input.GetKeyUp(KeyCode.Escape))
         {
-            case GameEndedType.Win:
-                ShowHidePanel(winPanel, true);
-                break;
-            case GameEndedType.Lose:
-                ShowHidePanel(losePanel, true);
-                break;
+            if (!exitPanel.activeSelf)
+            {
+                ShowPanel(exitPanel);
+            }
+            else
+            {
+                HidePanel(exitPanel);
+            }
         }
     }
 
-    private void ShowHidePanel(GameObject panel, bool isActive)
+    private void OnGameEnded(GameEndedType gameEndedType)
     {
-        Cursor.lockState = isActive ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = isActive;
-        panel.SetActive(isActive);
+        CloseActivePanels();
+        isGameEnded = true;
+        switch (gameEndedType)
+        {
+            case GameEndedType.Win:
+                ShowPanel(winPanel);
+                break;
+            case GameEndedType.Lose:
+                ShowPanel(losePanel);
+                break;
+        }
     }
 
     private void ConvertWaveTime(int waveTime)
@@ -107,6 +120,35 @@ public class GameplayUIManager : MonoBehaviour
         EventHandler.UnregisterEvent<int>("StartNewWave", OnStartNewWave);
     }
 
+    private void CloseActivePanels()
+    {
+        foreach(var panel in activePanels)
+        {
+            panel.SetActive(false);
+        }
+        activePanels.Clear();
+    }
+
+    private void EnableDisableCursor(bool isActive)
+    {
+        Cursor.lockState = isActive ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isActive;
+    }
+
+    public void ShowPanel(GameObject panel)
+    {
+        EnableDisableCursor(true);
+        activePanels.Add(panel);
+        panel.SetActive(true);
+    }
+
+    public void HidePanel(GameObject panel)
+    {
+        EnableDisableCursor(false);
+        activePanels.Remove(panel);
+        panel.SetActive(false);
+    }
+
     public void StartWaveCountdown(int timeUntilNextWave)
     {
         ConvertWaveTime(timeUntilNextWave);
@@ -130,14 +172,16 @@ public class GameplayUIManager : MonoBehaviour
 
     public void OnRestartClicked()
     {
-        ShowHidePanel(losePanel, false);
+        AudioManager.Instance?.PlayButtonSound();
+        HidePanel(losePanel);
+        isGameEnded = false;
         EventHandler.ExecuteEvent("GameRestarted");
     }
 
     public void OnExitClick()
     {
-        losePanel.SetActive(false);
-        winPanel.SetActive(false);
+        AudioManager.Instance?.PlayButtonSound();
+        CloseActivePanels();
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }

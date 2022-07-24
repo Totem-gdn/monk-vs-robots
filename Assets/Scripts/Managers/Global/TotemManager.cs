@@ -21,6 +21,10 @@ public class TotemManager : MonoBehaviour
             TotemMockDB = new TotemMockDB();
             DontDestroyOnLoad(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void SetCurrentUser(string userName)

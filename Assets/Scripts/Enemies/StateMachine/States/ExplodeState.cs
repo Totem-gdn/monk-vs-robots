@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class ExplodeState : BaseState
 {
+    private const float EXPLOSION_IMPACT_DURATION = 0.1f;
+
     [SerializeField] private Collider explosionCollider;
     [SerializeField] private HitDetector explosionhitDetector;
+    [Min(0)]
+    [SerializeField] private float explosionTimer;
 
     private void OnEnable()
     {
@@ -14,11 +18,10 @@ public class ExplodeState : BaseState
 
     private IEnumerator Explode()
     {
-        //Play explode animation
-        //Constant two seconds wait time during tests
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(explosionTimer);
         explosionCollider.enabled = true;
-        yield return new WaitForSeconds(0.1f);
+        stateMachine.RobotSoundsManager.PlayAudioClip(SoundType.BombExplosion);
+        yield return new WaitForSeconds(EXPLOSION_IMPACT_DURATION);
         explosionCollider.enabled = false;
         explosionhitDetector.ClearHittedTargets();
         stateMachine.hpController.Damage(stateMachine.hpController.CurrentHp);
