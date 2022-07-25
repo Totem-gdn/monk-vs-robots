@@ -57,9 +57,9 @@ public class CharacterControllerHelper : MonoBehaviour
     {
         var choosedAvatar = TotemManager.Instance.currentAvatar;
 
-        skinMaterial.color = choosedAvatar.skinColor;
-        hairMaterial.color = choosedAvatar.hairColor;
-        eyesMaterial.color = choosedAvatar.eyeColor;
+        skinMaterial.color = GetColorFromHex(choosedAvatar.skinColor);
+        hairMaterial.color = GetColorFromHex(choosedAvatar.hairColor);
+        eyesMaterial.color = GetColorFromHex(choosedAvatar.eyeColor);
         hairStyle = choosedAvatar.hairStyle;
         SwitchHairStyle(hairStyle);
 
@@ -127,6 +127,17 @@ public class CharacterControllerHelper : MonoBehaviour
         {
             gameEndedAbility = characterLocomotion.GetAbility<GameEndedAbility>();
         }
+    }
+
+    private Color GetColorFromHex(string colorHex)
+    {
+        var resultColor = Color.black;
+        if(!ColorUtility.TryParseHtmlString(colorHex, out resultColor))
+        {
+            resultColor = Color.black;
+        }
+
+        return resultColor;
     }
 
     private void OnDisable()

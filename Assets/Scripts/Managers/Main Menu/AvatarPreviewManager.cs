@@ -19,9 +19,9 @@ public class AvatarPreviewManager : MonoBehaviour
         ApplyGender(choosedAvatar.sex);
         ApplyCharacterBodyType(choosedAvatar.bodyFat, choosedAvatar.bodyMuscles);
         currentAvatarPreview = charactersTypes[currentCharacterType].GetComponent<AvatarPreview>();
-        currentAvatarPreview.ApplyEyesColor(choosedAvatar.eyeColor);
-        currentAvatarPreview.ApplyHairColor(choosedAvatar.hairColor);
-        currentAvatarPreview.ApplySkinColor(choosedAvatar.skinColor);
+        currentAvatarPreview.ApplyEyesColor(GetColorFromHex(choosedAvatar.eyeColor));
+        currentAvatarPreview.ApplyHairColor(GetColorFromHex(choosedAvatar.hairColor));
+        currentAvatarPreview.ApplySkinColor(GetColorFromHex(choosedAvatar.skinColor));
         currentAvatarPreview.ApplyHairStyle(choosedAvatar.hairStyle);
 
         return currentCharacterType;
@@ -58,5 +58,16 @@ public class AvatarPreviewManager : MonoBehaviour
         charactersTypes[currentCharacterType].SetActive(false);
         charactersTypes[newCharacterType].SetActive(true);
         currentCharacterType = newCharacterType;
+    }
+
+    private Color GetColorFromHex(string colorHex)
+    {
+        var resultColor = Color.black;
+        if (!ColorUtility.TryParseHtmlString(colorHex, out resultColor))
+        {
+            resultColor = Color.black;
+        }
+
+        return resultColor;
     }
 }

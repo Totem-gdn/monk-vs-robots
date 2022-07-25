@@ -19,8 +19,6 @@ public class MainMenuManager : MonoBehaviour
     public AssetsChooser assetsChooser;
 
     [SerializeField] private ElementEnumSceneIdDictionary arenasDictionary;
-
-    private AuthenticationManager authenticationManager;
     
     public TMP_Text VolumeSliderValueText { get; set; }
     public static MainMenuManager Instance { get; private set; }
@@ -31,14 +29,14 @@ public class MainMenuManager : MonoBehaviour
         {
             Instance = this;
         }
-        authenticationManager = GetComponent<AuthenticationManager>();
-        if (TotemManager.Instance.currentUser == null)
+
+        if (TotemManager.Instance.userAuthenticated)
         {
-            authenticationManager.logInPanel.SetActive(true);
+            mainMenuPanel.SetActive(true);
         }
         else
         {
-            mainMenuPanel.SetActive(true);
+            AuthenticationManager.Instance.LogInPanel.SetActive(true);
         }
 
         InitializeVolumeSlider(uiVolumeSlider, VolumeType.UI);
@@ -64,7 +62,7 @@ public class MainMenuManager : MonoBehaviour
         AudioManager.Instance?.PlayButtonSound();
         assetsChooser.ClearUserData();
         mainMenuPanel.SetActive(false);
-        authenticationManager.LogOut();
+        AuthenticationManager.Instance.LogOut();
     }
 
     public void OnExitClick()
