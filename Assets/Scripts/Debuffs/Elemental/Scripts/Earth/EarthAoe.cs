@@ -14,14 +14,12 @@ public class EarthAoe : MonoBehaviour
     [SerializeField] private SphereCollider aoeCollider;
 
     private List<RockController> pooledRocks = new List<RockController>();
-    private bool isInitialised = false;
 
     private void Awake()
     {
         if (rocksPoolRoot != null)
         {
             InitializeRocks();
-            isInitialised = true;
         }
     }
 

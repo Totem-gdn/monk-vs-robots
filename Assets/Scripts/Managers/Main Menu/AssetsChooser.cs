@@ -138,8 +138,8 @@ public class AssetsChooser : MonoBehaviour
 
     private void InitializeAssets()
     {
-        userSpears = TotemManager.Instance.currentUser.GetOwnedSpears();
-        userAvatars = TotemManager.Instance.currentUser.GetOwnedAvatars();
+        userSpears = TotemManager.Instance.currentUserSpears;
+        userAvatars = TotemManager.Instance.currentUserAvatars;
         maxSpearsCountTMP.text = userSpears.Count.ToString();
         maxAvatarsCountTMP.text = userAvatars.Count.ToString();
     }
@@ -152,8 +152,10 @@ public class AssetsChooser : MonoBehaviour
             {
                 playButton.interactable = false;
             }
+
             nextButton.interactable = false;
             previousButton.interactable = false;
+
             return false;
         }
         return true;

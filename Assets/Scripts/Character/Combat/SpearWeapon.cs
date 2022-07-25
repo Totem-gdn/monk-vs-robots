@@ -59,7 +59,8 @@ public class SpearWeapon : MonoBehaviour
         spearRangedController.throwingForce = spear.range;
 
         SetSpearElement(spear.element);
-        spearShaftMaterial.color = spear.shaftColor;
+        ColorUtility.TryParseHtmlString(spear.shaftColor, out Color spearShaftColor);
+        spearShaftMaterial.color = spearShaftColor;
 
         parentRoot = transform.parent;
         startPosition = transform.localPosition;

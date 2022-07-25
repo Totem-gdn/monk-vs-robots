@@ -1,90 +1,121 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TotemEntities;
+using TotemServices;
 using UnityEngine;
 
 public class AuthenticationManager : MonoBehaviour
 {
-    public GameObject logInPanel;
-    public TMP_InputField logInNicknameInputField;
-    public TMP_InputField logInPasswordInputField;
-    public TMP_Text logInErrorMessageText;
+    private const string ACCESS_TOKEN_PREF_KEY = "socialLoginAccessToken";
 
-    public GameObject signInPanel;
-    public TMP_InputField signInNicknameInputField;
-    public TMP_InputField signInPasswordInputField;
-    public TMP_Text signInErrorMessageText;
+    [SerializeField] private GameObject logInPanel;
+    [SerializeField] private GameObject logInInProgressPanel;
+    [SerializeField] private GameObject mainMenuPanel;
 
-    public GameObject mainMenuPanel;
+    private TotemDB totemDB;
+    private string gameId = "MonkVsRobots";
+
+    private string accessToken;
+    private string publicKey;
+
+    private bool avatarsLoaded;
+    private bool spearsLoaded;
+    
+    public GameObject LogInPanel
+    {
+        get
+        {
+            return logInPanel;
+        }
+    }
+
+    public static AuthenticationManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
+        totemDB = new TotemDB(gameId);
+
+        totemDB.OnSocialLoginCompleted.AddListener(OnUserLoggedIn);
+        totemDB.OnUserProfileLoaded.AddListener(OnUserProfileLoaded);
+        totemDB.OnSpearsLoaded.AddListener(OnSpearsLoaded);
+        totemDB.OnAvatarsLoaded.AddListener(OnAvatarsLoaded);
+
+        if (!TotemManager.Instance.userAuthenticated && PlayerPrefs.HasKey(ACCESS_TOKEN_PREF_KEY))
+        {
+            var accessToken = PlayerPrefs.GetString(ACCESS_TOKEN_PREF_KEY);
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                logInInProgressPanel.SetActive(true);
+                totemDB.GetUserProfile(accessToken);
+            }
+        }
+    }
+
+    private void OnUserLoggedIn(TotemAccountGateway.SocialLoginResponse logInResult)
+    {
+        accessToken = logInResult.accessToken;
+        PlayerPrefs.SetString(ACCESS_TOKEN_PREF_KEY, accessToken);
+        totemDB.GetUserProfile(accessToken);
+    }
+
+    private void OnUserProfileLoaded(string userPublicKey)
+    {
+        publicKey = userPublicKey;
+
+        TotemManager.Instance.userAuthenticated = true;
+        avatarsLoaded = false;
+        spearsLoaded = false;
+
+        totemDB.GetUserAvatars(publicKey);
+        totemDB.GetUserSpears(publicKey);
+    }
+
+    private void OnSpearsLoaded(List<TotemSpear> spears)
+    {
+        TotemManager.Instance.currentUserSpears = spears;
+        spearsLoaded = true;
+
+        if (avatarsLoaded)
+        {
+            logInInProgressPanel.SetActive(false);
+            logInPanel.SetActive(false);
+            mainMenuPanel.SetActive(true);
+        }
+    }
+
+    private void OnAvatarsLoaded(List<TotemAvatar> avatars)
+    {
+        TotemManager.Instance.currentUserAvatars = avatars;
+        avatarsLoaded = true;
+
+        if (spearsLoaded)
+        {
+            logInInProgressPanel.SetActive(false);
+            logInPanel.SetActive(false);
+            mainMenuPanel.SetActive(true);
+        }
+    }
 
     public void OnLogInClick()
     {
         AudioManager.Instance?.PlayButtonSound();
-        var isAuthenticated = TotemManager.Instance.TotemMockDB.UsersDB
-            .AuthenticateUser(logInNicknameInputField.text, logInPasswordInputField.text);
-
-        if(isAuthenticated)
-        {
-            TotemManager.Instance.SetCurrentUser(logInNicknameInputField.text);
-            ClosePanel(logInPanel, logInPasswordInputField, logInNicknameInputField, logInErrorMessageText);
-            mainMenuPanel.SetActive(true);
-        }
-        else
-        {
-            logInErrorMessageText.text = "Password and nickname are incorrect or user dose not exist.";
-        }
-    }
-
-    public void OnSignInClick()
-    {
-        AudioManager.Instance?.PlayButtonSound();
-        ClosePanel(logInPanel, logInPasswordInputField, logInNicknameInputField, logInErrorMessageText);
-        signInPanel.SetActive(true);
-    }
-
-    public void OnSignInCancelClick()
-    {
-        AudioManager.Instance?.PlayButtonSound();
-        CloseSignInPanel();
-    }
-
-    public void OnCreateNewAccountClick()
-    {
-        AudioManager.Instance?.PlayButtonSound();
-        if (string.IsNullOrWhiteSpace(signInNicknameInputField.text))
-        {
-            signInErrorMessageText.text = "Your nickname can't be empty.";
-            return;
-        }
-        if (signInPasswordInputField.text.Length < Constants.PASSWORD_MIN_LENGTH)
-        {
-            signInErrorMessageText.text = "Password length can't be less than 4.";
-            return;
-        }
-
-        TotemManager.Instance.TotemMockDB.UsersDB
-            .AddNewUser(signInNicknameInputField.text, signInPasswordInputField.text);
-        CloseSignInPanel();
+        logInInProgressPanel.SetActive(true);
+        totemDB.AuthenticateCurrentUser();
     }
 
     public void LogOut()
     {
-        TotemManager.Instance.currentUser = null;
-        logInPanel.SetActive(true);
-    }
-
-    private void ClosePanel(GameObject panel, TMP_InputField passwordInputField, 
-        TMP_InputField nicknameInputField, TMP_Text errorMessage)
-    {
-        panel.SetActive(false);
-        passwordInputField.text = string.Empty;
-        nicknameInputField.text = string.Empty;
-        errorMessage.text = string.Empty;
-    }
-
-    private void CloseSignInPanel()
-    {
-        ClosePanel(signInPanel, signInNicknameInputField, signInPasswordInputField, signInErrorMessageText);
+        TotemManager.Instance.userAuthenticated = false;
+        accessToken = publicKey = string.Empty;
+        TotemManager.Instance.currentUserAvatars.Clear();
+        TotemManager.Instance.currentUserSpears.Clear();
+        PlayerPrefs.SetString(ACCESS_TOKEN_PREF_KEY, accessToken);
         logInPanel.SetActive(true);
     }
 }
