@@ -45,22 +45,11 @@ public class AuthenticationManager : MonoBehaviour
         totemDB.OnUserProfileLoaded.AddListener(OnUserProfileLoaded);
         totemDB.OnSpearsLoaded.AddListener(OnSpearsLoaded);
         totemDB.OnAvatarsLoaded.AddListener(OnAvatarsLoaded);
-
-        if (!TotemManager.Instance.userAuthenticated && PlayerPrefs.HasKey(ACCESS_TOKEN_PREF_KEY))
-        {
-            var accessToken = PlayerPrefs.GetString(ACCESS_TOKEN_PREF_KEY);
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                logInInProgressPanel.SetActive(true);
-                totemDB.GetUserProfile(accessToken);
-            }
-        }
     }
 
     private void OnUserLoggedIn(TotemAccountGateway.SocialLoginResponse logInResult)
     {
         accessToken = logInResult.accessToken;
-        PlayerPrefs.SetString(ACCESS_TOKEN_PREF_KEY, accessToken);
         totemDB.GetUserProfile(accessToken);
     }
 
@@ -115,7 +104,6 @@ public class AuthenticationManager : MonoBehaviour
         accessToken = publicKey = string.Empty;
         TotemManager.Instance.currentUserAvatars.Clear();
         TotemManager.Instance.currentUserSpears.Clear();
-        PlayerPrefs.SetString(ACCESS_TOKEN_PREF_KEY, accessToken);
         logInPanel.SetActive(true);
     }
 }

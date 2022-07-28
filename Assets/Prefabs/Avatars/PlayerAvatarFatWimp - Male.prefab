@@ -5313,6 +5313,10 @@ PrefabInstance:
       value: -91.44
       objectReference: {fileID: 0}
     - target: {fileID: 5899680674082482991, guid: 1c4b7923fac51e846a1c3de6d4fc8ec0, type: 3}
+      propertyPath: throwingPosition
+      value: 
+      objectReference: {fileID: 1837632471337869605}
+    - target: {fileID: 5899680674082482991, guid: 1c4b7923fac51e846a1c3de6d4fc8ec0, type: 3}
       propertyPath: testThrowingPosition
       value: 
       objectReference: {fileID: 1837632471337869605}
