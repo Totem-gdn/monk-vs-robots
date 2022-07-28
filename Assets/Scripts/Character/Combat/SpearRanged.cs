@@ -11,7 +11,7 @@ public class SpearRanged : MonoBehaviour
     [NonSerialized] public float forceMultiplier = 1;
 
     [SerializeField] private Rigidbody spearRigidBody;
-    [SerializeField] private Transform testThrowingPosition;
+    [SerializeField] private Transform throwingPosition;
 
     private bool isLanded = false;
 
@@ -23,7 +23,7 @@ public class SpearRanged : MonoBehaviour
     private void OnEnable()
     {
         spearRigidBody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        transform.position = testThrowingPosition.position;
+        transform.position = throwingPosition.position;
         EnableDisableGravityProperties(true);
         spearRigidBody.AddForce(Camera.main.transform.forward * (throwingForce * forceMultiplier), ForceMode.Impulse);
     }

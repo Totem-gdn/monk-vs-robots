@@ -21,6 +21,7 @@ public class SpearWeapon : MonoBehaviour
     [Min(0)]
     [SerializeField] private float pickupDelay;
     [SerializeField] private HitDetector weaponHitDetector;
+    [SerializeField] private HitDetector aoeHitDetector;
     [SerializeField] private Collider spearTipCollider;
     [SerializeField] private ElementEnumGameObjectDictionary elementTypes;
     [SerializeField] private ElementEnumBaseDebuffDictionary elementEffects;
@@ -84,6 +85,7 @@ public class SpearWeapon : MonoBehaviour
         if (element != ElementEnum.Earth)
         {
             weaponHitDetector.damageInfo.attackDebuff = elementEffects[elementToSet];
+            aoeHitDetector.damageInfo.attackDebuff = elementEffects[elementToSet];
         }
         else
         {
