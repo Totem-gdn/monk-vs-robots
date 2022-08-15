@@ -3299,7 +3299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpSlider: {fileID: 1875861720502470946}
-  maxHp: 100
+  maxHp: 50
   currentHp: 0
 --- !u!114 &8693995765232520394
 MonoBehaviour:

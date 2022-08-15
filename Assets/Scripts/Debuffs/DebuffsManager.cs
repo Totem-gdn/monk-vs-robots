@@ -49,7 +49,10 @@ public class DebuffsManager : MonoBehaviour
     {
         debuffToRemove.Remove();
         activeDebuffs.Remove(debuffToRemove);
-        StartCoroutine(DebuffCooldown(debuffToRemove.GetType(), debuffToRemove.ResistanceDuration));
+        if (gameObject.activeSelf)
+        {
+            StartCoroutine(DebuffCooldown(debuffToRemove.GetType(), debuffToRemove.ResistanceDuration));
+        }
         RemoveDebuffVisualization(debuffToRemove);
         Destroy(debuffToRemove);
     }
