@@ -59,7 +59,6 @@ public class RobotsSpawner : MonoBehaviour
             EventHandler.ExecuteEvent(WavesManager.Instance,"GetWaveEnemiesCount", wavesRobots[waveIndex].Count);
             if (wavesRobots[waveIndex].Count > 0)
             {
-                //Activate portal animation
                 currentWaveRobots = wavesRobots[waveIndex];
                 StartCoroutine(SpawnEnemies());
             }
@@ -84,7 +83,6 @@ public class RobotsSpawner : MonoBehaviour
         }
         else
         {
-            //Disable portal animation
             spawnedEnemies = 0;
         }
     }
