@@ -40568,6 +40568,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f48cb6a3c9a7f2f4787853bc12e438ac, type: 2}
   - {fileID: 11400000, guid: 0dc5aec5222413343bd7d4c747b3729c, type: 2}
   - {fileID: 11400000, guid: 15ba2617cfda37742ae136c5b65cf4bf, type: 2}
+  - {fileID: 11400000, guid: 2b9449c8638666b40b1f787ed7277d93, type: 2}
+  - {fileID: 11400000, guid: 514579c2eddce5347831ba151a8635ed, type: 2}
+  - {fileID: 11400000, guid: bc8bde3155aa0fa4b88cefa7e69950a7, type: 2}
+  - {fileID: 11400000, guid: 2baf6529334c21348ab65bf69fa3d1bf, type: 2}
+  - {fileID: 11400000, guid: 25e8e06c68c241943b21d6e63719bf0c, type: 2}
+  - {fileID: 11400000, guid: d9e2e11e4190ac743b129da427131ced, type: 2}
   uiAudioSource: {fileID: 818375325}
   musicAudioSource: {fileID: 1428765761}
   buttonClickSound: {fileID: 8300000, guid: 7add41fdc01e1614086ff60f58dda535, type: 3}
