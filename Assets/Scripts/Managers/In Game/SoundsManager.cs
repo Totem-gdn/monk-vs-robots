@@ -71,4 +71,9 @@ public class SoundsManager : MonoBehaviour
             audioSource.Stop();
         }
     }
+
+    private void OnDestroy()
+    {
+        EventHandler.UnregisterEvent("SetVolume", SetSoundsVolume);
+    }
 }
