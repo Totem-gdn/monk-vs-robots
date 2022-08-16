@@ -81,9 +81,9 @@ public class DebuffsManager : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
-        foreach (var debuff in activeDebuffs)
-        {
-            RemoveDebuff(debuff);
+        for(int i = activeDebuffs.Count-1; i > 0; i--)
+        { 
+            RemoveDebuff(activeDebuffs[i]);
         }
     }
 
