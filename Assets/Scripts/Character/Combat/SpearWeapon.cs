@@ -38,7 +38,10 @@ public class SpearWeapon : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
 
+    private Coroutine delayedPickupCoroutine;
+
     public bool IsInHand { get; private set; } = true;
+    public bool IsSpearLanded { get; private set; } = false;
 
     void Awake()
     {
@@ -152,24 +155,34 @@ public class SpearWeapon : MonoBehaviour
     private void OnSpearLanded()
     {
         EnableHitCollider(false);
+        IsSpearLanded = true;
         spearRangedController.enabled = false;
         damageMultiplier = 1;
+
         if(element == ElementEnum.Earth)
         {
             earthAoe.StopAllCoroutines();
             earthAoe.StartCoroutine(earthAoe.ActivateAoe());
         }
-        StartCoroutine(DelayedPickupActivation());
+
+        delayedPickupCoroutine = StartCoroutine(DelayedPickupActivation());
     }
 
     private void OnSpearPickedUp()
     {
+        if (delayedPickupCoroutine != null)
+        {
+            StopCoroutine(delayedPickupCoroutine);
+        }
+
         CharacterControllerHelper.Instance.CharacterAnimator?.SetBool(ANIMATOR_ARMED_PARAMETER, true);
         transform.SetParent(parentRoot);
         transform.localPosition = startPosition;
         transform.localRotation = startRotation;
 
         gameObject.layer = Constants.MELEE_SPEAR_LAYER_INDEX;
+
+        IsSpearLanded = false;
         IsInHand = true;
         spearPicker.enabled = false;
         spearPickupCollider.enabled = false;
@@ -185,6 +198,8 @@ public class SpearWeapon : MonoBehaviour
     private IEnumerator DelayedPickupActivation()
     {
         yield return new WaitForSeconds(pickupDelay);
+
+        delayedPickupCoroutine = null;
         spearPicker.enabled = true;
         spearPickupCollider.enabled = true;
     }

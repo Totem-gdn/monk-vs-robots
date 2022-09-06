@@ -59,6 +59,11 @@ public class PickupItem : MonoBehaviour
         StartCoroutine(ItemDisappearCountdown());
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private void OnDestroy()
     {
         EventHandler.UnregisterEvent("GameRestarted", HideItem);
