@@ -9849,90 +9849,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!1 &2353535362378501295
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1128301023661454218}
-  - component: {fileID: 6868075173302707335}
-  - component: {fileID: 6404414715014232845}
-  m_Layer: 0
-  m_Name: obsidian
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1128301023661454218
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2353535362378501295}
-  m_LocalRotation: {x: -0.70710695, y: -0.000000029802322, z: -0.00000008940697, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100.000015, y: 99.999985, z: 100}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5517944756950406605}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6868075173302707335
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2353535362378501295}
-  m_Mesh: {fileID: 3342693640760971306, guid: e1fb4428b046b54438ccdc8b880bc15d, type: 3}
---- !u!23 &6404414715014232845
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2353535362378501295}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 80a28a48507bf6446835295003e32614, type: 2}
-  - {fileID: 2100000, guid: 80a28a48507bf6446835295003e32614, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2578492704790652614
 GameObject:
   m_ObjectHideFlags: 0
@@ -19833,7 +19749,7 @@ GameObject:
   - component: {fileID: 1342890527829993917}
   - component: {fileID: 7149228292336519719}
   m_Layer: 0
-  m_Name: bone
+  m_Name: Iron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19882,8 +19798,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5b711661b6563474d86ba77036abac23, type: 2}
-  - {fileID: 2100000, guid: 5b711661b6563474d86ba77036abac23, type: 2}
+  - {fileID: 2100000, guid: e32af1dfb8fdb644ea0fca828c826bb8, type: 2}
+  - {fileID: 2100000, guid: e32af1dfb8fdb644ea0fca828c826bb8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -29663,7 +29579,7 @@ GameObject:
   - component: {fileID: 364048823794376596}
   - component: {fileID: 1930387138374899795}
   m_Layer: 0
-  m_Name: flint
+  m_Name: Steel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29712,8 +29628,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c9ea2b44085c5f498941d16ff121d36, type: 2}
-  - {fileID: 2100000, guid: 2c9ea2b44085c5f498941d16ff121d36, type: 2}
+  - {fileID: 2100000, guid: e1f6d39822e6ee6498c29c38c01880d8, type: 2}
+  - {fileID: 2100000, guid: e1f6d39822e6ee6498c29c38c01880d8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -29766,7 +29682,6 @@ Transform:
   - {fileID: 9149978815056722381}
   - {fileID: 550010758079258665}
   - {fileID: 4961732996928569498}
-  - {fileID: 1128301023661454218}
   m_Father: {fileID: 3629220055096679648}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29851,12 +29766,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   criticalDamageChance: 0
   tipTypes:
-    m_keys: 00000000010000000200000003000000
+    m_keys: 000000000100000002000000
     m_values:
     - {fileID: 8007859445254763669}
     - {fileID: 3657971809566187471}
     - {fileID: 5093796026008640471}
-    - {fileID: 2353535362378501295}
   spearShaftMaterial: {fileID: 2100000, guid: dc71eb033f236ec4db74fb1ac9bc2a47, type: 2}
   spearPicker: {fileID: 286524454605551310}
   spearPickupCollider: {fileID: 7624517306159815499}
@@ -30055,7 +29969,7 @@ GameObject:
   - component: {fileID: 6432576073991275723}
   - component: {fileID: 2522995615444090751}
   m_Layer: 0
-  m_Name: wood
+  m_Name: Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30104,8 +30018,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0b8056596d166b44bb911b3732ed75a2, type: 2}
-  - {fileID: 2100000, guid: 0b8056596d166b44bb911b3732ed75a2, type: 2}
+  - {fileID: 2100000, guid: 1803bb923b671b24b9e0388ade96e3e4, type: 2}
+  - {fileID: 2100000, guid: 1803bb923b671b24b9e0388ade96e3e4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

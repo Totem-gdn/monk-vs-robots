@@ -9,19 +9,8 @@ public class WeaponPreviewManager : MonoBehaviour
 
     public void ApplyWeaponPreview(TotemSpear totemWeapon)
     {
-        currentWeaponPreview.ApplyShaftColor(GetColorFromHex(totemWeapon.shaftColor));
+        currentWeaponPreview.ApplyShaftColor(totemWeapon.shaftColor);
         currentWeaponPreview.ApplyTipMaterial(totemWeapon.tipMaterial);
         currentWeaponPreview.ApplySpearElement(totemWeapon.element);
-    }
-
-    private Color GetColorFromHex(string colorHex)
-    {
-        var resultColor = Color.black;
-        if(!ColorUtility.TryParseHtmlString(colorHex,out resultColor))
-        {
-            resultColor = Color.black;
-        }
-
-        return resultColor;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(TipMaterialEnumGameObjectDictionary))]
+[CustomPropertyDrawer(typeof(SpearMaterialEnumGameObjectDictionary))]
 [CustomPropertyDrawer(typeof(HairStyleEnumGameObjectDictionary))]
 [CustomPropertyDrawer(typeof(CharacterTypeGameObjectDictionary))]
 [CustomPropertyDrawer(typeof(ElementEnumGameObjectDictionary))]

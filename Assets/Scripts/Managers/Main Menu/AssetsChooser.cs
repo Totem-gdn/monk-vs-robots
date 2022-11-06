@@ -28,6 +28,9 @@ public class AssetsChooser : MonoBehaviour
     [SerializeField] private AvatarPreviewManager avatarPreviewManager;
     [SerializeField] private WeaponPreviewManager weaponPreviewManager;
 
+    [SerializeField] private GameObject noAvatarsPanel;
+    [SerializeField] private GameObject noSpearsPanel;
+
     #region SpearParamsVisualization
 
     [Min(1)]
@@ -47,11 +50,17 @@ public class AssetsChooser : MonoBehaviour
     private List<TotemSpear> userSpears = new List<TotemSpear>();
     private List<TotemAvatar> userAvatars = new List<TotemAvatar>();
 
+    public int SpearDamageLvlStep { get; private set; }
+    public int SpearRangeLvlStep { get; private set; }
+
     public void OnEnable()
     {
         playButton.interactable = true;
         InitializeAssets();
         VerifyAssets();
+
+        noAvatarsPanel.SetActive(userAvatars.Count == 0);
+        noSpearsPanel.SetActive(userAvatars.Count == 0);
     }
 
     public void OnDisable()
@@ -61,6 +70,9 @@ public class AssetsChooser : MonoBehaviour
         spearRangeLvlTMP.text = string.Empty;
         avatarPreviewIndex = 0;
         spearPreviewIndex = 0;
+
+        noAvatarsPanel.SetActive(false);
+        noSpearsPanel.SetActive(false);
     }
 
     public void OnAvatarPreviewChange(int indexStep)
@@ -89,6 +101,12 @@ public class AssetsChooser : MonoBehaviour
     {
         TotemManager.Instance.currentAvatar = userAvatars[avatarPreviewIndex];
         TotemManager.Instance.currentSpear = userSpears[spearPreviewIndex];
+    }
+
+    private void Awake()
+    {
+        SpearDamageLvlStep = spearDamageLvlStep;
+        SpearRangeLvlStep = spearRangeLvlStep;
     }
 
     private int CheckPreviewIndex(int currentValue, int maxValue)

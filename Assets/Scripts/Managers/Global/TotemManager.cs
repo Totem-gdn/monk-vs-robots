@@ -6,22 +6,20 @@ using UnityEngine;
 
 public class TotemManager : MonoBehaviour
 {
-    public TotemMockDB TotemMockDB { get; private set; }
     public static TotemManager Instance { get; private set; }
 
     public bool userAuthenticated;
     public TotemAvatar currentAvatar;
     public TotemSpear currentSpear;
 
-    public List<TotemAvatar> currentUserAvatars;
-    public List<TotemSpear> currentUserSpears;
+    public List<TotemAvatar> currentUserAvatars = new List<TotemAvatar>();
+    public List<TotemSpear> currentUserSpears = new List<TotemSpear>();
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            TotemMockDB = new TotemMockDB();
             DontDestroyOnLoad(gameObject);
         }
         else

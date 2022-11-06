@@ -76,3 +76,10 @@ public enum DebuffDurationType
     Permanent,
     Temporary
 }
+
+public enum SpearMaterial
+{
+    Gold = 0,
+    Iron = 1,
+    Steel = 2
+}

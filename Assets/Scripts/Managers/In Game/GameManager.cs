@@ -1,10 +1,10 @@
-using enums;
 using Opsive.UltimateCharacterController.Camera;
 using System;
 using UnityEngine;
 using EventHandler = Opsive.Shared.Events.EventHandler;
 using OpsiveAudioManager = Opsive.Shared.Audio.AudioManager;
 using Opsive.Shared.Audio;
+using TotemEnums;
 
 public class GameManager : MonoBehaviour
 {

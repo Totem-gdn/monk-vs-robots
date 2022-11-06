@@ -1,8 +1,9 @@
-using enums;
 using System;
 using TotemEntities;
 using UnityEngine;
 using System.Linq;
+using TotemEnums;
+using TotemEntities.DNA;
 
 public class AvatarPreviewManager : MonoBehaviour
 {
@@ -19,9 +20,9 @@ public class AvatarPreviewManager : MonoBehaviour
         ApplyGender(choosedAvatar.sex);
         ApplyCharacterBodyType(choosedAvatar.bodyFat, choosedAvatar.bodyMuscles);
         currentAvatarPreview = charactersTypes[currentCharacterType].GetComponent<AvatarPreview>();
-        currentAvatarPreview.ApplyEyesColor(GetColorFromHex(choosedAvatar.eyeColor));
-        currentAvatarPreview.ApplyHairColor(GetColorFromHex(choosedAvatar.hairColor));
-        currentAvatarPreview.ApplySkinColor(GetColorFromHex(choosedAvatar.skinColor));
+        currentAvatarPreview.ApplyEyesColor(choosedAvatar.eyeColor);
+        currentAvatarPreview.ApplyHairColor(choosedAvatar.hairColor);
+        currentAvatarPreview.ApplySkinColor(choosedAvatar.skinColor);
         currentAvatarPreview.ApplyHairStyle(choosedAvatar.hairStyle);
 
         return currentCharacterType;

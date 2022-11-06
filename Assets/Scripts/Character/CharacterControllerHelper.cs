@@ -1,7 +1,7 @@
-using enums;
 using Opsive.UltimateCharacterController.Character;
 using Opsive.UltimateCharacterController.Traits;
 using System;
+using TotemEnums;
 using UnityEngine;
 using EventHandler = Opsive.Shared.Events.EventHandler;
 
@@ -57,9 +57,9 @@ public class CharacterControllerHelper : MonoBehaviour
     {
         var choosedAvatar = TotemManager.Instance.currentAvatar;
 
-        skinMaterial.color = GetColorFromHex(choosedAvatar.skinColor);
-        hairMaterial.color = GetColorFromHex(choosedAvatar.hairColor);
-        eyesMaterial.color = GetColorFromHex(choosedAvatar.eyeColor);
+        skinMaterial.color = choosedAvatar.skinColor;
+        hairMaterial.color = choosedAvatar.hairColor;
+        eyesMaterial.color = choosedAvatar.eyeColor;
         hairStyle = choosedAvatar.hairStyle;
         SwitchHairStyle(hairStyle);
 

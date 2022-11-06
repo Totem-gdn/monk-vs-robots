@@ -1,10 +1,10 @@
-using enums;
 using System;
 using UnityEngine;
 using UnityEditor;
+using TotemEnums;
 
 [Serializable]
-public class TipMaterialEnumGameObjectDictionary : SerializableDictionary<TipMaterialEnum, GameObject>
+public class SpearMaterialEnumGameObjectDictionary : SerializableDictionary<SpearMaterial, GameObject>
 { }
 
 [Serializable]

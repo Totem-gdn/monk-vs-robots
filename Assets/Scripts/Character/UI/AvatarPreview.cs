@@ -1,4 +1,4 @@
-using enums;
+using TotemEnums;
 using UnityEngine;
 
 public class AvatarPreview : MonoBehaviour

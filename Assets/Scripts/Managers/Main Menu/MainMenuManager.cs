@@ -1,8 +1,8 @@
-using enums;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TotemEnums;
 using UnityEngine;
 using UnityEngine.UI;
 

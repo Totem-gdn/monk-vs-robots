@@ -1,9 +1,9 @@
-using enums;
 using Opsive.Shared.Events;
 using Opsive.UltimateCharacterController.Camera;
 using System.Collections;
 using System.Collections.Generic;
 using TotemEntities;
+using TotemEnums;
 using UnityEngine;
 
 public class SpearWeapon : MonoBehaviour
@@ -12,7 +12,7 @@ public class SpearWeapon : MonoBehaviour
 
     public float criticalDamageChance = 0;
 
-    [SerializeField] private TipMaterialEnumGameObjectDictionary tipTypes;
+    [SerializeField] private SpearMaterialEnumGameObjectDictionary tipTypes;
     [SerializeField] private Material spearShaftMaterial;
     [SerializeField] private SpearPickup spearPicker;
     [SerializeField] private Collider spearPickupCollider;
@@ -27,7 +27,7 @@ public class SpearWeapon : MonoBehaviour
     [SerializeField] private ElementEnumBaseDebuffDictionary elementEffects;
     [SerializeField] private EarthAoe earthAoe;
 
-    private TipMaterialEnum tipMaterial;
+    private SpearMaterial tipMaterial;
     private ElementEnum element;
 
     private GameObject character;
@@ -63,15 +63,14 @@ public class SpearWeapon : MonoBehaviour
         spearRangedController.throwingForce = spear.range;
 
         SetSpearElement(spear.element);
-        ColorUtility.TryParseHtmlString(spear.shaftColor, out Color spearShaftColor);
-        spearShaftMaterial.color = spearShaftColor;
+        spearShaftMaterial.color = spear.shaftColor;
 
         parentRoot = transform.parent;
         startPosition = transform.localPosition;
         startRotation = transform.localRotation;
     }
 
-    private void SetSpearTip(TipMaterialEnum tipMaterialToSet)
+    private void SetSpearTip(SpearMaterial tipMaterialToSet)
     {
         tipTypes[tipMaterial].SetActive(false);
         tipMaterial = tipMaterialToSet;

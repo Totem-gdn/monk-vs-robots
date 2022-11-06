@@ -1,10 +1,10 @@
-using enums;
 using UnityEngine;
 using DG.Tweening;
+using TotemEnums;
 
 public class WeaponPreview : MonoBehaviour
 {
-    [SerializeField] private TipMaterialEnumGameObjectDictionary tipTypes;
+    [SerializeField] private SpearMaterialEnumGameObjectDictionary tipTypes;
     [SerializeField] private ElementEnumGameObjectDictionary elementTypes;
     [SerializeField] private Material spearShaftMaterial;
     [SerializeField] private Transform rootTransform;
@@ -13,7 +13,7 @@ public class WeaponPreview : MonoBehaviour
     [SerializeField] private float moveAnimationTime;
     [SerializeField] private float moveY;
 
-    private TipMaterialEnum currentTipMaterial;
+    private SpearMaterial currentTipMaterial;
     private ElementEnum element;
 
     private void Start()
@@ -22,7 +22,7 @@ public class WeaponPreview : MonoBehaviour
         //rootTransform.DOLocalMoveY(moveY, moveAnimationTime).SetLoops(-1, LoopType.Yoyo);
     }
 
-    public void ApplyTipMaterial(TipMaterialEnum tipMaterialToSet)
+    public void ApplyTipMaterial(SpearMaterial tipMaterialToSet)
     {
         tipTypes[currentTipMaterial].SetActive(false);
         currentTipMaterial = tipMaterialToSet;

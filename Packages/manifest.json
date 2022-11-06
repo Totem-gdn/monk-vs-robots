@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.totem.totemgenerator": "https://github.com/Totem-gdn/TotemGeneratorUnity.git",
+    "com.totem.totemcore": "https://github.com/voropserg/TotemGeneratorUnity.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "1.0.0-exp.4",
     "com.unity.collab-proxy": "1.15.7",
