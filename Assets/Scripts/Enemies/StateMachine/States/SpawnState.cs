@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+using Opsive.Shared.Events;
 
 public class SpawnState : BaseState
 {
     private void OnEnable()
     {
-        //Play spawn animation
+        EventHandler.ExecuteEvent(stateMachine.gameObject, "Spawn");
         IsCompleted = true;
     }
 }

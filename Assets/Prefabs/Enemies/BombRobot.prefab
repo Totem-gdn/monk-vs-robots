@@ -3322,6 +3322,7 @@ MonoBehaviour:
   - {fileID: 6023481980144911573}
   - {fileID: 4575377928177135081}
   - {fileID: 2629255086604205790}
+  robotStateMachine: {fileID: 5120658635414042509}
 --- !u!114 &5120658635414042509
 MonoBehaviour:
   m_ObjectHideFlags: 0

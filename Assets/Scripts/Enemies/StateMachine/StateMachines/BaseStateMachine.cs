@@ -26,6 +26,7 @@ public class BaseStateMachine : MonoBehaviour
     public BaseState CurrentState { get; private set; }
     public int CurrentCheckpointIndex { get; private set; }
     public Transform CurrentCheckpoint { get; private set; }
+    public bool IsDead { get; private set; }
 
     public List<Transform> CheckpointsPath
     {
@@ -48,6 +49,7 @@ public class BaseStateMachine : MonoBehaviour
         TryGetComponent(out robotAnimator);
         InitializeStateTransitions();
         ResetCheckpoints();
+        EventHandler.RegisterEvent(gameObject, "Spawn", OnSpawn);
         EventHandler.RegisterEvent(gameObject, "Death", OnDeath);
         EventHandler.RegisterEvent<GameEndedType>("GameEnded", OnGameEnded);
     }
@@ -106,6 +108,7 @@ public class BaseStateMachine : MonoBehaviour
 
     private void OnDeath()
     {
+        IsDead = true;
         var dieState = avaliableStates.Find(state => state is DieState);
 
         if (dieState != null)
@@ -118,6 +121,11 @@ public class BaseStateMachine : MonoBehaviour
             CurrentState.enabled = false;
             isStateMachineRunning = false;
         }
+    }
+
+    private void OnSpawn()
+    {
+        IsDead = false;
     }
 
     private void OnGameEnded(GameEndedType gameEndedType)
@@ -142,6 +150,7 @@ public class BaseStateMachine : MonoBehaviour
 
     private void OnDestroy()
     {
+        EventHandler.UnregisterEvent(gameObject, "Spawn", OnSpawn);
         EventHandler.UnregisterEvent(gameObject, "Death", OnDeath);
         EventHandler.UnregisterEvent<GameEndedType>("GameEnded", OnGameEnded);
     }

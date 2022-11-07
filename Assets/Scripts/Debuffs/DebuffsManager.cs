@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DebuffsManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> avaliableDebuffsVisualizers;
+    [SerializeField] private BaseStateMachine robotStateMachine;
 
     private Dictionary<BaseDebuff, GameObject> debuffsVisualizersInUse = new Dictionary<BaseDebuff, GameObject>();
     private List<BaseDebuff> activeDebuffs = new List<BaseDebuff>();
@@ -90,7 +91,7 @@ public class DebuffsManager : MonoBehaviour
     public void InitDebuff(BaseDebuff newDebuffData)
     {
         Type debuffType = newDebuffData.GetType();
-        if(IsDebuffAvaliable(debuffType))
+        if(!robotStateMachine.IsDead && IsDebuffAvaliable(debuffType))
         {
             var debuff = ScriptableObject.CreateInstance(debuffType) as BaseDebuff;
             newDebuffData.debuffTarget = this;
