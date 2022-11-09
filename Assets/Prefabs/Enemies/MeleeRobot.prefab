@@ -2321,6 +2321,7 @@ MonoBehaviour:
   startState: {fileID: 7586416055763774284}
   checkpointsPath: []
   robotSoundsManager: {fileID: 4986970086666270685}
+  robotAnimator: {fileID: 6219472975118296738}
 --- !u!114 &7586416055763774284
 MonoBehaviour:
   m_ObjectHideFlags: 0

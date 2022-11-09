@@ -16,7 +16,7 @@ public class RangedAttackState : BaseState
         IsCompleted = true;
         foreach(var aimPart in projectileAimParts)
         {
-            aimCoroutines.Add(StartCoroutine(aimPart.Aim(stateMachine.currentTargetTransform)));
+            aimPart.Aim(stateMachine.currentTargetTransform);
         }
     }
 
@@ -31,9 +31,9 @@ public class RangedAttackState : BaseState
     protected override void OnDisable()
     {
         base.OnDisable();
-        foreach (var aimCoroutine in aimCoroutines)
+        foreach (var aimPart in projectileAimParts)
         {
-            StopCoroutine(aimCoroutine);
+            aimPart.TargetOutOfRange();
         }
         aimCoroutines.Clear();
     }

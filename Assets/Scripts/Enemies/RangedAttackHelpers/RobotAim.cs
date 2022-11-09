@@ -17,6 +17,10 @@ public class RobotAim : MonoBehaviour
     private float defaultAimRotationSpeed = 0.1f;
     private float currentAimRotationSpeed;
 
+    private bool isAiming = false;
+    private Transform targetAimTransform;
+    private Quaternion currentRotationQuaternion;
+
     public float centerOffsetY = 0;
 
     public bool IsAimed { get; private set; }
@@ -24,6 +28,62 @@ public class RobotAim : MonoBehaviour
     private void Awake()
     {
         currentAimRotationSpeed = defaultAimRotationSpeed;
+    }
+
+    private void LateUpdate()
+    {
+        if (isAiming)
+        {
+            var modiffiedTargetPosition = new Vector3(targetAimTransform.position.x,
+                targetAimTransform.position.y + centerOffsetY,
+                targetAimTransform.position.z);
+
+            var targetDirection = (modiffiedTargetPosition - transform.position).normalized;
+            var targetRotation = Quaternion.LookRotation(targetDirection);
+
+            foreach (var vertice in staticAxises)
+            {
+                switch (vertice)
+                {
+                    case AxisType.X:
+                        targetRotation.x = 0;
+                        break;
+                    case AxisType.Y:
+                        targetRotation.y = 0;
+                        break;
+                    case AxisType.Z:
+                        targetRotation.z = 0;
+                        break;
+                }
+            }
+
+            var newRotationQuaternion = Quaternion.Slerp(currentRotationQuaternion, targetRotation, currentAimRotationSpeed);
+            if (RestrictedAxisInBounds(GetAxisEulerAngel(restrictedAxis, newRotationQuaternion)))
+            {
+                if (isLocalRotation)
+                {
+                    transform.localRotation = newRotationQuaternion;
+                }
+                else
+                {
+                    transform.rotation = newRotationQuaternion;
+                }
+
+                currentRotationQuaternion = newRotationQuaternion;
+            }
+
+            if (isRaycasting)
+            {
+                if (Physics.Raycast(transform.position, transform.forward, shootDistance, hitTargetsMask))
+                {
+                    IsAimed = true;
+                }
+                else
+                {
+                    IsAimed = false;
+                }
+            }
+        }
     }
 
     private bool RestrictedAxisInBounds(float nextAngle)
@@ -71,63 +131,20 @@ public class RobotAim : MonoBehaviour
     private void OnDisable()
     {
         currentAimRotationSpeed = defaultAimRotationSpeed;
+        isAiming = false;
         EventHandler.UnregisterEvent<float, bool>(gameObject, "SpeedChange", OnSpeedChange);
     }
 
-    public IEnumerator Aim(Transform targetTransform)
+    public void Aim(Transform targetTransform)
     {
-        while (true)
-        {
-            var modiffiedTargetPosition = new Vector3(targetTransform.position.x,
-                targetTransform.position.y + centerOffsetY,
-                targetTransform.position.z);
+        isAiming = true;
+        targetAimTransform = targetTransform;
+        currentRotationQuaternion = isLocalRotation ? transform.localRotation : transform.rotation;
+    }
 
-            var targetDirection = (modiffiedTargetPosition - transform.position).normalized;
-            var targetRotation = Quaternion.LookRotation(targetDirection);
-            var currentRotation = isLocalRotation ? transform.localRotation : transform.rotation;
-
-            foreach (var vertice in staticAxises)
-            {
-                switch (vertice)
-                {
-                    case AxisType.X:
-                        targetRotation.x = 0;
-                        break;
-                    case AxisType.Y:
-                        targetRotation.y = 0;
-                        break;
-                    case AxisType.Z:
-                        targetRotation.z = 0;
-                        break;
-                }
-            }
-
-            var newRotationQuaternion = Quaternion.Slerp(currentRotation, targetRotation, currentAimRotationSpeed);
-            if (RestrictedAxisInBounds(GetAxisEulerAngel(restrictedAxis, newRotationQuaternion)))
-            {
-                if (isLocalRotation)
-                {
-                    transform.localRotation = newRotationQuaternion;
-                }
-                else
-                {
-                    transform.rotation = newRotationQuaternion;
-                }
-            }
-
-            if(isRaycasting)
-            {
-                if (Physics.Raycast(transform.position, transform.forward, shootDistance, hitTargetsMask))
-                {
-                    IsAimed = true;
-                }
-                else
-                {
-                    IsAimed = false;
-                }
-            }
-
-            yield return null;
-        }
+    public void TargetOutOfRange()
+    {
+        isAiming = false;
+        targetAimTransform = null;
     }
 }
