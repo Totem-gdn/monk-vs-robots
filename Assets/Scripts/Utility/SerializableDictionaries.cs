@@ -8,7 +8,7 @@ public class SpearMaterialEnumGameObjectDictionary : SerializableDictionary<Spea
 { }
 
 [Serializable]
-public class HairStyleEnumGameObjectDictionary : SerializableDictionary<HairStyleEnum, GameObject>
+public class HairStyleEnumGameObjectDictionary : SerializableDictionary<HairStyle, GameObject>
 { }
 
 [Serializable]

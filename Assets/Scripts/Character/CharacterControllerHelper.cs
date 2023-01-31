@@ -18,8 +18,9 @@ public class CharacterControllerHelper : MonoBehaviour
     public Material skinMaterial;
     public Material eyesMaterial;
     public Material hairMaterial;
+    public Material clothesMaterail;
 
-    private HairStyleEnum hairStyle;
+    private HairStyle hairStyle;
     private CharacterType characterType;
     private GameEndedAbility gameEndedAbility;
     private bool isGameEnded = false;
@@ -60,6 +61,8 @@ public class CharacterControllerHelper : MonoBehaviour
         skinMaterial.color = choosedAvatar.skinColor;
         hairMaterial.color = choosedAvatar.hairColor;
         eyesMaterial.color = choosedAvatar.eyeColor;
+        clothesMaterail.color = choosedAvatar.clothesColor;
+
         hairStyle = choosedAvatar.hairStyle;
         SwitchHairStyle(hairStyle);
 
@@ -89,7 +92,7 @@ public class CharacterControllerHelper : MonoBehaviour
         }
     }
 
-    private void SwitchHairStyle(HairStyleEnum hairStyleToSet)
+    private void SwitchHairStyle(HairStyle hairStyleToSet)
     {
         hairStyles[hairStyle].SetActive(false);
         hairStyles[hairStyleToSet].SetActive(true);

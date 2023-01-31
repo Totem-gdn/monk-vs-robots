@@ -6,13 +6,14 @@ public class AvatarPreview : MonoBehaviour
     [SerializeField] private Material skinMaterial;
     [SerializeField] private Material eyesMaterial;
     [SerializeField] private Material hairMaterial;
+    [SerializeField] private Material clothesMaterial;
     [SerializeField] private HairStyleEnumGameObjectDictionary hairStyles;
     [SerializeField] private SexEnum characterGender;
 
     public HairStyleEnumGameObjectDictionary HairStyles { get => hairStyles; }
     public SexEnum CharacterGender { get => characterGender; }
 
-    private HairStyleEnum currentHairStyle = HairStyleEnum.Short;
+    private HairStyle currentHairStyle = HairStyle.Short;
 
     public void ApplySkinColor(Color skinColor)
     {
@@ -29,7 +30,12 @@ public class AvatarPreview : MonoBehaviour
         hairMaterial.color = hairColor;
     }
 
-    public void ApplyHairStyle(HairStyleEnum newHairStyle)
+    public void ApplyClothesColor(Color clothesColor)
+    {
+        clothesMaterial.color = clothesColor;
+    }
+
+    public void ApplyHairStyle(HairStyle newHairStyle)
     {
         hairStyles[currentHairStyle].SetActive(false);
         hairStyles[newHairStyle].SetActive(true);

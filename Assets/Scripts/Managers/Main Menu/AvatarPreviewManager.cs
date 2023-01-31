@@ -24,6 +24,7 @@ public class AvatarPreviewManager : MonoBehaviour
         currentAvatarPreview.ApplyHairColor(choosedAvatar.hairColor);
         currentAvatarPreview.ApplySkinColor(choosedAvatar.skinColor);
         currentAvatarPreview.ApplyHairStyle(choosedAvatar.hairStyle);
+        currentAvatarPreview.ApplyClothesColor(choosedAvatar.clothesColor);
 
         return currentCharacterType;
     }

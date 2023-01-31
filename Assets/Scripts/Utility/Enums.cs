@@ -79,7 +79,20 @@ public enum DebuffDurationType
 
 public enum SpearMaterial
 {
-    Gold = 0,
-    Iron = 1,
-    Steel = 2
+    Bone = 0,
+    Wood = 1,
+    Flint = 2,
+    Obsidian = 3
+}
+
+public enum HairStyle
+{
+    Afro = 0,
+    Bang = 1,
+    BigTail = 2,
+    Curls = 3,
+    Dreadlocks = 4,
+    Mohawk = 5,
+    MohawkWithTail = 6,
+    Short = 7
 }

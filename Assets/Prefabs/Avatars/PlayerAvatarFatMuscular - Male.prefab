@@ -1205,17 +1205,18 @@ MonoBehaviour:
     m_keys: 0700000006000000020000000400000000000000050000000100000003000000
     m_values:
     - {fileID: 8871140699303280799}
-    - {fileID: 7498807234553555729}
     - {fileID: 6546305041554556965}
+    - {fileID: 7498807234553555729}
     - {fileID: 3662603609838304694}
     - {fileID: 4938983661108764138}
-    - {fileID: 7773351806199317613}
-    - {fileID: 3990747208802831626}
     - {fileID: 8195598195919839432}
+    - {fileID: 3990747208802831626}
+    - {fileID: 7773351806199317613}
   playerCollider: {fileID: 482638452831953106}
   skinMaterial: {fileID: 2100000, guid: 52d6f43edb766a74d850eef5fcb3c2a9, type: 2}
   eyesMaterial: {fileID: 2100000, guid: 690077bb6e22b0a4f8e80108752cf443, type: 2}
   hairMaterial: {fileID: 2100000, guid: 3aaa6ddf9d5e11a429a83ee075e7c8b9, type: 2}
+  clothesMaterail: {fileID: 2100000, guid: 4497883768c116a49b373377c2870acb, type: 2}
 --- !u!114 &359005867812929169
 MonoBehaviour:
   m_ObjectHideFlags: 0
